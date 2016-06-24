@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UITextFieldDelegate>
+@protocol TextFieldDelegate
 
+-(void) textFieldDidEnterSSN:(BOOL) on;
+
+@end
+
+@interface ViewController : UIViewController <UITextFieldDelegate,UITextFieldDelegate>
+
+@property (nonatomic,weak) id <TextFieldDelegate> delegate;
 
 @end
 

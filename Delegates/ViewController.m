@@ -15,6 +15,7 @@
 @property (nonatomic,weak) IBOutlet UISwitch *changeCharactersInRange;
 @property (nonatomic,weak) IBOutlet UISwitch *clearSwitch;
 @property (nonatomic,weak) IBOutlet UISwitch *returnSwitch;
+@property (nonatomic,weak) IBOutlet UITextField *nameTextField;
 
 @end
 
@@ -22,8 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
+    self.nameTextField.delegate = self;
+    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -41,7 +42,11 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     
     if ([_endEditingSwitch isOn])
-    { NSLog(@"textFieldShouldEndEditing"); }
+    { NSLog(@"textFieldShouldEndEditing");
+    
+    [self.delegate textFieldDidEnterSSN:YES];
+    }
+    
     
     return YES;
 }
@@ -64,13 +69,18 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    
     if ([_returnSwitch isOn])
     { NSLog(@"textFieldShouldReturn");
+
     [textField resignFirstResponder];
     }
     
     return YES;
+}
+
+- (void) textFieldDidEnterSSN:(BOOL)on {
+    
+    NSLog(@"Print to screen SSN");
 }
 
 @end
