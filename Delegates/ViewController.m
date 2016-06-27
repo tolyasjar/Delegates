@@ -15,7 +15,6 @@
 @property (nonatomic,weak) IBOutlet UISwitch *changeCharactersInRange;
 @property (nonatomic,weak) IBOutlet UISwitch *clearSwitch;
 @property (nonatomic,weak) IBOutlet UISwitch *returnSwitch;
-@property (nonatomic,weak) IBOutlet UITextField *nameTextField;
 
 @end
 
@@ -24,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.nameTextField.delegate = self;
+    self.delegate = self;
     }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +44,6 @@
     if ([_endEditingSwitch isOn])
     { NSLog(@"textFieldShouldEndEditing");
     
-    [self.delegate textFieldDidEnterSSN:YES];
     }
     
     
@@ -57,6 +56,7 @@
     { NSLog(@"textFieldshouldChangeCharactersInRange"); }
     
     return YES;
+    
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
@@ -74,13 +74,21 @@
 
     [textField resignFirstResponder];
     }
+    NSString *numString;
+    NSString *logString = self.nameTextField.text;
+    NSScanner *scanner = [NSScanner scannerWithString:logString];
+    [scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:nil];
+    [scanner scanCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&numString];
+    numberString = [numString intValue];
+   
+    [self.delegate textFieldDidEnterSSN:numberString];
     
     return YES;
 }
 
-- (void) textFieldDidEnterSSN:(BOOL)on {
+- (void) textFieldDidEnterSSN:(int)x {
     
-    NSLog(@"Print to screen SSN");
+    NSLog(@"SSN = %d",x);
 }
 
 @end

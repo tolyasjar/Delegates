@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol TextFieldDelegate
+@protocol ToleenDelegate
 
--(void) textFieldDidEnterSSN:(BOOL) on;
+-(void) textFieldDidEnterSSN:(int) numberString;
 
 @end
 
-@interface ViewController : UIViewController <UITextFieldDelegate,UITextFieldDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate,ToleenDelegate>
+{
+    int numberString;
 
-@property (nonatomic,weak) id <TextFieldDelegate> delegate;
-
+}
+@property (nonatomic,weak) id <ToleenDelegate> delegate;
+@property (nonatomic,weak) IBOutlet UITextField *nameTextField;
 @end
 
